@@ -1,5 +1,7 @@
 import firebase from "firebase/compat/app"
 import "firebase/compat/firestore"
+import "firebase/compat/auth"
+
 const firebaseConfig = {
     apiKey: "AIzaSyBelOzWFPs8p8vsUTtMYgTfA_OzhZ23amM",
     authDomain: "react-file-manager-2e71f.firebaseapp.com",
@@ -11,3 +13,4 @@ const firebaseConfig = {
   };
 
 const fire =  firebase.initializeApp(firebaseConfig);
+export default fire;

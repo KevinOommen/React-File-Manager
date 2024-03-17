@@ -1,12 +1,37 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom";
+import { signUpUser } from "../../redux/actionCreators/authActionCreators";
 const RegisterForm = () => {
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [repassword, setRePassword] = React.useState('');
+    const [success, setSuccess] = React.useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!name || !email || !password || !repassword) {
+            alert('Please fill all the fields')
+            return;
+        }
+        if (password !== repassword) {
+            alert('Password does not match')
+            return;
+        }
+        dispatch(signUpUser(name, email, password, setSuccess));
+    }
+    React.useEffect(() => {
+        if (success) {
+        navigate('/dashboard');
+        }  [success] }
 
+    )
     return (
-       <form>
+       <form onSubmit={handleSubmit}>
+        <h1 className="h3 mb-3 fw-normal">Register</h1>
         <div className="form-group my-2">
             <input type="text" name="name" className="form-control" placeholder="Name" value={name} 
             onChange={(e) => setName(e.target.value)}
@@ -19,12 +44,17 @@ const RegisterForm = () => {
         </div>
         <div className="form-group my-2">
             <input type="password" name="password" className="form-control" placeholder="Password" value={password} 
-            onChange={(e) => setPassword(e.target.value)}
-            />  
-        /</div>
-        <button type="submit" className="btn btn-primary my-2 form-control">Login</button>
+            onChange={(e) => setPassword(e.target.value)} /> 
+        </div>
+        <div className="form-group my-2">
+            <input type="password" name="password" className="form-control" placeholder="Re-type Password" value={repassword} 
+            onChange={(e) => setRePassword(e.target.value)} />  
+        </div>
+        <button type="submit" className="btn btn-primary my-2 form-control">Register</button>
+       <Link to="/login">Already have an account?Login here</Link>
        </form>
+
     )
 }
 
-export default RegisterFormForm;
+export default RegisterForm;

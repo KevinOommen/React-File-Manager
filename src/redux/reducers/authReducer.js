@@ -1,14 +1,18 @@
-const initialState = {}
+import * as types from '../actionTypes/authActionTypes';
+const initialState = {
+    isAuthenticated: false,
+    user: {}
+}
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'LOGIN':
+        case types.LOGIN_USER:
             return {
                 ...state,
                 isAuthenticated: true,
                 user: action.payload
             }
-        case 'LOGOUT':
+        case types.LOGOUT_USER:
             return {
                 ...state,
                 isAuthenticated: false,
