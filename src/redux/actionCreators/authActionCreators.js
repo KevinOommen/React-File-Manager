@@ -18,7 +18,7 @@ export const siginUser = (email, password, setSuccess) => (dispatch) => {
         .then((userCredential) => {
             // Signed in
             var user = userCredential.user;
-            dispatch(loginUser({uid: user.uid, email: user.email, name: user.displayName}));
+            dispatch(loginUser({uid: user.uid, email: user.email, displayName: user.displayName}));
             setSuccess(true);
         })
         .catch((error) => {
@@ -57,5 +57,21 @@ export const signUpUser = (name, email, password, setSuccess) => (dispatch) => {
 }
 
 export const signOutUser = () => (dispatch) => {
+    fire.auth().signOut().then(() => {
     dispatch(logOutUser());
+    });
+}
+
+export const checkIsLoggedIn = () => (dispatch) => {
+    fire.auth().onAuthStateChanged((user) => {
+        if (user) {
+            dispatch(
+                loginUser(
+                    { uid: user.uid, 
+                        email: user.email, 
+                        displayName: user.displayName }));
+        } else {
+            dispatch(logOutUser());
+        }
+    });
 }

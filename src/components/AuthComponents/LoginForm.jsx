@@ -20,7 +20,8 @@ const LoginForm = () => {
         dispatch(siginUser(email, password, setSuccess));
     }
     React.useEffect(() => {
-        navigate('/dashboard');
+        if(success)
+            navigate('/dashboard');
     }, [success])
 
     return (
