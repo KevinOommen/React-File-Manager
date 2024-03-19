@@ -7,6 +7,8 @@ import NavigationComponent from '../../components/HomePageComponents/Navigation'
 import SubBar from '../../components/DashboardComponents/SubBar/SubBar';
 
 const Dashboard = () => {
+
+    const [isCreateFolderModalOpen, setIsCreateFolderModalOpen] = useState(false);  
     const isLoggedIn = useSelector(state => state.authReducer.isAuthenticated);
     const navigate = useNavigate();
     useEffect(() => {
@@ -16,8 +18,15 @@ const Dashboard = () => {
     }, [isLoggedIn, navigate]);
     return (
         <>
+        {
+        isCreateFolderModalOpen && (
+        <CreateFolder 
+        setIsCreateFolderModalOpen={setIsCreateFolderModalOpen} />)
+        }
         <NavigationComponent />
-        <SubBar />
+        <SubBar  
+        setIsCreateFolderModalOpen={setIsCreateFolderModalOpen}/>
+
         </>
     );
 };
